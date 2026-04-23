@@ -1,0 +1,1 @@
+// Default Laravel JS entry
