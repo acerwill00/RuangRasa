@@ -37,9 +37,21 @@
                 };
                 $scheduleDateTime = \Carbon\Carbon::parse($apt->schedule_date . ' ' . $apt->schedule_time);
             @endphp
-            <span class="ml-auto px-3 py-1.5 rounded-full text-xs font-bold {{ $aptBadge }}">
-                {{ ucfirst($apt->status) }}
-            </span>
+            <div class="ml-auto flex items-center gap-2">
+                <span class="px-3 py-1.5 rounded-full text-xs font-bold {{ $aptBadge }}">
+                    {{ ucfirst($apt->status) }}
+                </span>
+                
+                @if($apt->status === 'scheduled')
+                    <form action="{{ route('admin.appointment.complete', $apt) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="px-4 py-1.5 rounded-full text-xs font-bold bg-green-500 text-white hover:bg-green-600 shadow-sm transition-colors"
+                            onclick="return confirm('Are you sure you want to mark this session as completed? This will notify the patient and ask for a review.')">
+                            Mark as Completed
+                        </button>
+                    </form>
+                @endif
+            </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

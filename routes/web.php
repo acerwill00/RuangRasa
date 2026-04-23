@@ -85,7 +85,13 @@ Route::get('/psychologist/{id}', function ($id) {
 
     $timeSlots = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
 
-    return view('pages.psychologist-profile', compact('psychologist', 'dates', 'bookedSlots', 'timeSlots'));
+    $reviews = \App\Models\Appointment::with('user')
+        ->where('psychologist_id', $m->id)
+        ->whereNotNull('rating')
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+    return view('pages.psychologist-profile', compact('psychologist', 'dates', 'bookedSlots', 'timeSlots', 'reviews'));
 });
 
 Route::get('/articles', function () {
@@ -145,6 +151,12 @@ Route::middleware(['auth'])->group(function () {
     // Checkout API — keep auth-only (middleware in controller handles logic)
     Route::post('/api/checkout', [PaymentController::class, 'createPaymentToken']);
     Route::post('/api/checkout/simulate-success', [PaymentController::class, 'simulateSuccess']);
+
+    // Notifications
+    Route::post('/notifications/mark-read', function () {
+        auth()->user()->unreadNotifications->markAsRead();
+        return response()->json(['success' => true]);
+    });
 });
 
 // ─── Patient-Only Routes (admins are redirected away) ─────────────────────────
@@ -169,8 +181,9 @@ Route::middleware(['auth', 'ensure.patient'])->group(function () {
 
     // Cancel appointment
     Route::post('/appointments/{appointment}/cancel', [BookingController::class, 'cancel'])->name('appointment.cancel');
-    // Rate appointment
-    Route::post('/appointments/{appointment}/rate', [BookingController::class, 'rate'])->name('appointment.rate');
+    // Review appointment
+    Route::get('/appointments/{appointment}/review', [\App\Http\Controllers\ReviewController::class, 'create'])->name('appointment.review');
+    Route::post('/appointments/{appointment}/review', [\App\Http\Controllers\ReviewController::class, 'store'])->name('appointment.review.store');
 
     // Appointment detail page (patient view)
     Route::get('/appointments/{appointment}', function (\App\Models\Appointment $appointment) {
@@ -251,6 +264,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
         $apt = $appointment->load(['user', 'psychologist', 'order']);
         return view('admin.appointments.show', compact('apt'));
     })->name('admin.appointment.show');
+
+    // Admin Complete Appointment
+    Route::post('/admin/appointments/{appointment}/complete', function (\Illuminate\Http\Request $request, \App\Models\Appointment $appointment) {
+        $appointment->update(['status' => 'completed']);
+        $appointment->user->notify(new \App\Notifications\SessionEndedNotification($appointment));
+        return back()->with('success', 'Session marked as completed. A review request has been sent to the patient.');
+    })->name('admin.appointment.complete');
 
     // Admin Complaints
     Route::get('/admin/complaints', [\App\Http\Controllers\Admin\ComplaintController::class, 'index'])->name('admin.complaints.index');

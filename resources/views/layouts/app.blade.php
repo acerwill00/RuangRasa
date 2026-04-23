@@ -111,6 +111,46 @@
                         </a>
                     @endif
 
+                    {{-- Notifications Dropdown --}}
+                    <div x-data="{ open: false, unreadCount: {{ auth()->user()->unreadNotifications->count() }} }" class="relative" @click.outside="open = false">
+                        <button @click="open = !open; if(open && unreadCount > 0) { fetch('/notifications/mark-read', {method: 'POST', headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'}}); unreadCount = 0; }" 
+                            class="relative p-2 text-slate-500 hover:text-cta transition-colors focus:outline-none rounded-full hover:bg-slate-50 mt-1">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <span x-show="unreadCount > 0" style="display: none;" class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                        </button>
+
+                        <div x-show="open"
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             style="display: none;"
+                             class="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden z-50">
+                            
+                            <div class="px-4 py-3 bg-secondary/30 border-b border-slate-100 flex justify-between items-center">
+                                <p class="font-semibold text-text-main text-sm">Notifications</p>
+                            </div>
+
+                            <div class="max-h-80 overflow-y-auto">
+                                @forelse(auth()->user()->notifications()->take(10)->get() as $notification)
+                                    <a href="{{ $notification->data['url'] ?? '#' }}" class="block px-4 py-3 border-b border-slate-50 hover:bg-slate-50 transition-colors {{ $notification->read_at ? 'opacity-70' : 'bg-primary/5' }}">
+                                        <p class="text-sm font-semibold text-text-main">{{ $notification->data['title'] }}</p>
+                                        <p class="text-xs text-slate-500 mt-0.5 line-clamp-2">{{ $notification->data['message'] }}</p>
+                                        <p class="text-[10px] text-slate-400 mt-1">{{ $notification->created_at->diffForHumans() }}</p>
+                                    </a>
+                                @empty
+                                    <div class="px-4 py-6 text-center text-sm text-slate-500">
+                                        No notifications yet.
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- User Dropdown --}}
                     <div x-data="{ open: false }" class="relative" @click.outside="open = false">
                         <button @click="open = !open" id="user-menu-btn"
