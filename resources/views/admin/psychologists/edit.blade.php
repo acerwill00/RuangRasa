@@ -44,7 +44,7 @@
                 <div>
                     <label class="block text-sm font-bold text-text-main mb-2">Profile Photo</label>
                         <div class="mb-3">
-                            <img src="{{ asset('img/prof-pic.jpeg') }}" class="w-20 h-20 rounded-xl object-cover">
+                            <img src="{{ $psychologist->photo_url ? asset('storage/' . $psychologist->photo_url) : asset('img/prof-pic.jpeg') }}" class="w-20 h-20 rounded-xl object-cover">
                         </div>
                     <input type="file" name="photo" accept="image/*" class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:border-cta font-medium">
                     <p class="text-xs opacity-60 mt-1">Leave empty to keep current photo.</p>

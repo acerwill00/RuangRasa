@@ -10,14 +10,14 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
             <div>
                 <h1 class="text-3xl font-bold text-text-main">
-                    Welcome back, {{ explode(' ', auth()->user()->name)[0] }} 👋
+                    {{ __('Welcome back') }}, {{ explode(' ', auth()->user()->name)[0] }} 👋
                 </h1>
-                <p class="text-sm opacity-60 mt-1">Here are all your counseling sessions.</p>
+                <p class="text-sm opacity-60 mt-1">{{ __('Here are all your counseling sessions.') }}</p>
             </div>
             <a href="/our-psychologist"
                class="inline-flex items-center gap-2 px-6 py-3 bg-cta hover:bg-cta-hover text-white rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex-shrink-0">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                Book New Session
+                {{ __('Book New Session') }}
             </a>
         </div>
 
@@ -43,10 +43,10 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                 </div>
-                <h2 class="text-xl font-bold mb-2 text-text-main">No sessions yet</h2>
-                <p class="text-sm opacity-60 mb-6 max-w-xs mx-auto">You haven't booked any counseling sessions. Take the first step toward feeling better.</p>
+                <h2 class="text-xl font-bold mb-2 text-text-main">{{ __('No sessions yet') }}</h2>
+                <p class="text-sm opacity-60 mb-6 max-w-xs mx-auto">{{ __('You haven\'t booked any counseling sessions. Take the first step toward feeling better.') }}</p>
                 <a href="/our-psychologist" class="inline-flex items-center gap-2 px-8 py-3 bg-cta hover:bg-cta-hover text-white rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    Meet Our Psychologists
+                    {{ __('Meet Our Psychologists') }}
                 </a>
             </div>
 
@@ -81,7 +81,7 @@
                         $serviceLabel = match($apt->service_type ?? '') {
                             'psikolog_klinis' => 'Psikolog Klinis',
                             'konseling'       => 'Konseling',
-                            default           => 'Session',
+                            default           => __('Session'),
                         };
                     @endphp
 
@@ -104,7 +104,7 @@
                                 <h2 class="font-bold text-text-main text-base">{{ $apt->psychologist->name }}</h2>
                                 <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-secondary text-text-main/70">{{ $serviceLabel }}</span>
                             </div>
-                            <p class="text-sm opacity-60 mb-3">{{ $apt->psychologist->specialization ?? 'Psychologist' }}</p>
+                            <p class="text-sm opacity-60 mb-3">{{ $apt->psychologist->specialization ?? __('Psychologist') }}</p>
 
                             <div class="flex flex-wrap gap-2 items-center text-xs font-semibold">
                                 {{-- Date/Time chip --}}
@@ -119,10 +119,10 @@
 
                                 {{-- Status badges --}}
                                 <span class="px-3 py-1.5 rounded-full {{ $orderBadge }}">
-                                    Payment: {{ ucfirst($orderStatus) }}
+                                    {{ __('Payment') }}: {{ __(ucfirst($orderStatus)) }}
                                 </span>
                                 <span class="px-3 py-1.5 rounded-full {{ $aptBadge }}">
-                                    {{ ucfirst($aptStatus) }}
+                                    {{ __(ucfirst($aptStatus)) }}
                                 </span>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                         <div class="flex-shrink-0">
                             <a href="{{ route('appointment.show', $apt->id) }}"
                                class="text-xs font-bold px-4 py-2 border border-slate-200 rounded-xl hover:border-cta hover:text-cta transition-all">
-                                View Details
+                                {{ __('View Details') }}
                             </a>
                         </div>
                     </div>

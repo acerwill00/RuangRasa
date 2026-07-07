@@ -18,7 +18,7 @@
                 
                 <!-- Specialties Badges -->
                 <div>
-                    <h3 class="text-sm font-semibold opacity-60 uppercase tracking-wide mb-3">Specialties</h3>
+                    <h3 class="text-sm font-semibold opacity-60 uppercase tracking-wide mb-3">{{ __('Specialties') }}</h3>
                     <div class="flex flex-wrap gap-2">
                         @foreach($psychologist['specialties'] as $specialty)
                         <span class="px-4 py-2.5 bg-white text-text-main text-sm font-bold rounded-full shadow-sm border border-secondary text-slate-600">{{ $specialty }}</span>
@@ -48,16 +48,16 @@
                 <!-- Quick Facts Grid -->
                 <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10 bg-white p-8 rounded-2xl shadow-sm border border-secondary">
                     <div>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Experience</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{{ __('Experience') }}</p>
                         <p class="font-black text-xl text-text-main">{{ $psychologist['experience'] }}</p>
                     </div>
                     <div>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Languages</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{{ __('Languages') }}</p>
                         <p class="font-black text-xl text-text-main">{{ $psychologist['languages'] }}</p>
                     </div>
                     <div class="col-span-2 lg:col-span-1 border-t lg:border-t-0 lg:border-l border-secondary pt-6 lg:pt-0 lg:pl-8">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Session Price</p>
-                        <p class="font-black text-2xl text-cta leading-none mt-1">Rp{{ $psychologist['price'] }} <span class="block text-xs font-bold mt-1 text-slate-400 tracking-wider">/ SESSION</span></p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{{ __('Session Price') }}</p>
+                        <p class="font-black text-2xl text-cta leading-none mt-1">Rp{{ $psychologist['price'] }} <span class="block text-xs font-bold mt-1 text-slate-400 tracking-wider">/ {{ __('SESSION') }}</span></p>
                     </div>
                 </div>
 
@@ -66,13 +66,13 @@
                     @auth
                         @if(!auth()->user()->is_admin)
                             <a href="/book/{{ $psychologist['id'] }}" class="inline-flex items-center justify-center w-full md:w-auto px-10 py-5 bg-cta hover:bg-cta-hover text-white rounded-2xl font-bold text-lg transition-all shadow-md hover:shadow-xl hover:-translate-y-1">
-                                Book a Session with {{ explode(' ', $psychologist['name'])[0] }}
+                                {{ __('Book a Session with') }} {{ explode(' ', $psychologist['name'])[0] }}
                                 <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         @else
                             <div class="inline-flex items-center gap-3 px-6 py-4 bg-secondary/40 border border-secondary rounded-2xl text-sm font-semibold text-slate-500">
                                 <svg class="w-5 h-5 text-cta/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                                Admin View — Booking disabled
+                                {{ __('Admin View — Booking disabled') }}
                             </div>
                         @endif
                     @else
@@ -80,7 +80,7 @@
                             <svg class="w-5 h-5 mr-2 text-cta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                             </svg>
-                            Log In to Book a Session
+                            {{ __('Log In to Book a Session') }}
                         </a>
                     @endauth
                 </div>
@@ -95,14 +95,14 @@
     @if(!auth()->user()->is_admin)
 <section id="schedule" class="py-24 bg-white" x-data="profileSchedule()">
     <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-10">Available Schedules</h2>
+        <h2 class="text-3xl lg:text-4xl font-bold mb-10">{{ __('Available Schedules') }}</h2>
         
         <div class="bg-secondary/10 border border-secondary p-8 lg:p-12 rounded-[2rem] shadow-sm">
             
             {{-- ── Step 1: Pick a Date ────────────────────────────────────── --}}
             <p class="text-xs font-bold uppercase tracking-widest opacity-50 mb-4 flex items-center gap-2">
                 <span class="w-5 h-5 rounded-full bg-cta text-white text-[10px] flex items-center justify-center font-black">1</span>
-                Choose a Date
+                {{ __('Choose a Date') }}
             </p>
             <div class="flex flex-wrap gap-4 pb-2 mb-8">
                 @foreach($dates as $d)
@@ -116,7 +116,7 @@
                             ? 'border-cta bg-primary/20 text-cta shadow-sm scale-105 ring-2 ring-cta/20'
                             : 'border-slate-200 bg-white hover:border-cta/50 text-slate-600'"
                         class="min-w-[90px] flex flex-col items-center p-4 rounded-2xl border-2 transition-all cursor-pointer">
-                        <span class="text-xs font-bold uppercase mb-1">{{ $isToday ? 'Today' : $carbon->format('D') }}</span>
+                        <span class="text-xs font-bold uppercase mb-1">{{ $isToday ? __('Today') : $carbon->format('D') }}</span>
                         <span class="text-2xl font-black leading-none">{{ $carbon->format('j') }}</span>
                         <span class="text-xs opacity-60 mt-0.5">{{ $carbon->format('M') }}</span>
                     </button>
@@ -133,7 +133,7 @@
 
                 <p class="text-xs font-bold uppercase tracking-widest opacity-50 mb-4 flex items-center gap-2">
                     <span class="w-5 h-5 rounded-full bg-cta text-white text-[10px] flex items-center justify-center font-black">2</span>
-                    Choose a Time <span class="font-normal normal-case opacity-70 tracking-normal">(WIB – GMT+7)</span>
+                    {{ __('Choose a Time') }} <span class="font-normal normal-case opacity-70 tracking-normal">(WIB – GMT+7)</span>
                 </p>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 mb-8">
@@ -148,7 +148,7 @@
                             }"
                             class="py-4 px-4 rounded-xl text-sm text-center transition-all font-semibold relative">
                             {{ \Carbon\Carbon::createFromFormat('H:i', $slot)->format('H:i') }} WIB
-                            <span x-show="isBooked('{{ $slot }}')" class="block text-[10px] font-semibold mt-0.5 opacity-60">Booked</span>
+                            <span x-show="isBooked('{{ $slot }}')" class="block text-[10px] font-semibold mt-0.5 opacity-60">{{ __('Booked') }}</span>
                         </button>
                     @endforeach
                 </div>
@@ -174,16 +174,16 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-xs font-semibold opacity-50 uppercase tracking-wide mb-0.5">Your selection</p>
+                            <p class="text-xs font-semibold opacity-50 uppercase tracking-wide mb-0.5">{{ __('Your selection') }}</p>
                             <p class="font-bold text-text-main" x-text="selectedDate ? (dateLabel + ' · ' + selectedTime + ' WIB') : ''"></p>
-                            <p class="text-xs opacity-60 mt-0.5">Service & payment confirmed on the next step</p>
+                            <p class="text-xs opacity-60 mt-0.5">{{ __('Service & payment confirmed on the next step') }}</p>
                         </div>
                     </div>
 
                     {{-- CTA Button --}}
                     <a :href="`/book/{{ $psychologist['id'] }}?date=${selectedDate}&time=${selectedTime}`"
                        class="inline-flex items-center gap-2 px-8 py-4 bg-cta hover:bg-cta-hover text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap flex-shrink-0">
-                        Book This Session
+                        {{ __('Book This Session') }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
@@ -204,14 +204,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                 </svg>
             </div>
-            <h3 class="text-2xl font-bold text-text-main mb-3">Log In to See Available Schedules</h3>
-            <p class="text-slate-500 mb-7 max-w-md mx-auto">Create an account or log in to view available appointment dates and book a session with this psychologist.</p>
+            <h3 class="text-2xl font-bold text-text-main mb-3">{{ __('Log In to See Available Schedules') }}</h3>
+            <p class="text-slate-500 mb-7 max-w-md mx-auto">{{ __('Create an account or log in to view available appointment dates and book a session with this psychologist.') }}</p>
             <div class="flex items-center justify-center gap-4">
                 <a href="/login" class="px-7 py-3 bg-cta hover:bg-cta-hover text-white rounded-xl font-semibold transition-all shadow-sm hover:shadow">
-                    Log In
+                    {{ __('Log In') }}
                 </a>
                 <a href="/register" class="px-7 py-3 border-2 border-primary/40 hover:border-cta text-text-main rounded-xl font-semibold transition-all">
-                    Create Account
+                    {{ __('Create Account') }}
                 </a>
             </div>
         </div>
@@ -222,7 +222,7 @@
 <!-- Reviews & Trust Section -->
 <section class="py-24 bg-secondary/20 border-t border-secondary">
     <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-12 text-center">What Clients Say About {{ explode(' ', $psychologist['name'])[0] }}</h2>
+        <h2 class="text-3xl lg:text-4xl font-bold mb-12 text-center">{{ __('What Clients Say About') }} {{ explode(' ', $psychologist['name'])[0] }}</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
@@ -239,13 +239,13 @@
                     <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center font-black text-text-main shadow-sm">{{ strtoupper(substr($review->user->name, 0, 1)) }}</div>
                     <div>
                         <p class="font-bold">{{ $review->user->name }}</p>
-                        <p class="text-xs font-semibold opacity-50 uppercase tracking-widest mt-0.5">Verified Client</p>
+                        <p class="text-xs font-semibold opacity-50 uppercase tracking-widest mt-0.5">{{ __('Verified Client') }}</p>
                     </div>
                 </div>
             </div>
             @empty
             <div class="col-span-full text-center text-slate-500 py-10 bg-white rounded-2xl border border-slate-100">
-                <p>No reviews yet for this psychologist. Be the first to leave a review after your session!</p>
+                <p>{{ __('No reviews yet for this psychologist. Be the first to leave a review after your session!') }}</p>
             </div>
             @endforelse
 

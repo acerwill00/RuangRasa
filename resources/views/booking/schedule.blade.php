@@ -17,7 +17,7 @@
                     <div class="w-8 h-8 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-white group-hover:scale-110 transition-transform">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="text-xs font-semibold text-text-main hidden md:block opacity-80">1. Psych</span>
+                    <span class="text-xs font-semibold text-text-main hidden md:block opacity-80 group-hover:opacity-100">1. {{ __('Psych') }}</span>
                 </a>
 
                 {{-- Step 2 — Done --}}
@@ -25,19 +25,19 @@
                     <div class="w-8 h-8 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-white group-hover:scale-110 transition-transform">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="text-xs font-semibold text-text-main hidden md:block opacity-80">2. Service</span>
+                    <span class="text-xs font-semibold text-text-main hidden md:block opacity-80 group-hover:opacity-100">2. {{ __('Service') }}</span>
                 </a>
 
                 {{-- Step 3 — Active --}}
                 <div class="flex flex-col items-center gap-2 cursor-default">
                     <div class="w-10 h-10 rounded-full bg-primary text-text-main ring-4 ring-white flex items-center justify-center font-bold text-lg shadow-soft">3</div>
-                    <span class="text-xs font-bold text-cta bg-white px-2 py-0.5 rounded shadow-sm">3. Schedule</span>
+                    <span class="text-xs font-bold text-cta bg-white px-2 py-0.5 rounded shadow-sm">3. {{ __('Schedule') }}</span>
                 </div>
 
                 {{-- Step 4 — Locked --}}
                 <div class="flex flex-col items-center gap-2 bg-secondary/10 py-1 px-1 md:px-2 rounded-lg text-text-main/40">
                     <div class="w-8 h-8 rounded-full bg-white border border-secondary flex items-center justify-center font-bold text-sm shadow-sm">4</div>
-                    <span class="text-xs font-medium hidden md:block">4. Payment</span>
+                    <span class="text-xs font-medium hidden md:block">4. {{ __('Payment') }}</span>
                 </div>
             </div>
         </div>
@@ -47,16 +47,16 @@
             <div class="lg:col-span-2 space-y-6">
                 <div class="bg-white p-8 rounded-[2rem] shadow-soft border border-secondary/50">
                     <div class="mb-8">
-                        <h1 class="text-2xl font-bold mb-2">Pick Your Ideal Time</h1>
+                        <h1 class="text-2xl font-bold mb-2">{{ __('Pick Your Ideal Time') }}</h1>
                         <p class="opacity-70 text-sm flex items-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            Times shown in WIB (GMT+7)
+                            {{ __('Times shown in WIB (GMT+7)') }}
                         </p>
                     </div>
 
                     {{-- ── Date Strip ─────────────────────────────────── --}}
                     <div class="mb-8">
-                        <h2 class="font-semibold text-sm uppercase tracking-wider mb-4 opacity-60">Next 7 Days</h2>
+                        <h2 class="font-semibold text-sm uppercase tracking-wider mb-4 opacity-60">{{ __('Next 7 Days') }}</h2>
                         <div class="flex overflow-x-auto gap-3 pb-4 pt-2 px-1 -mx-1 hide-scrollbar">
                             @foreach($dates as $d)
                                 @php
@@ -73,10 +73,10 @@
                                         : 'border-secondary hover:border-primary/50 hover:bg-secondary/40'"
                                     class="min-w-[72px] flex flex-col items-center p-3 rounded-2xl border-2 transition-all cursor-pointer">
                                     <span class="text-xs font-semibold uppercase mb-0.5">
-                                        {{ $isToday ? 'Today' : $dayName }}
+                                        {{ $isToday ? __('Today') : __($dayName) }}
                                     </span>
                                     <span class="text-2xl font-bold leading-none">{{ $dayNum }}</span>
-                                    <span class="text-xs opacity-60 mt-0.5">{{ $monthName }}</span>
+                                    <span class="text-xs opacity-60 mt-0.5">{{ __($monthName) }}</span>
                                 </button>
                             @endforeach
                         </div>
@@ -101,14 +101,14 @@
                                     }"
                                     class="py-3 px-4 rounded-xl text-sm text-center transition-all relative overflow-hidden">
                                     {{ \Carbon\Carbon::createFromFormat('H:i', $slot)->format('h:i A') }}
-                                    <span x-show="isBooked('{{ $slot }}')" class="block text-[10px] font-semibold mt-0.5 opacity-70">Booked</span>
+                                    <span x-show="isBooked('{{ $slot }}')" class="block text-[10px] font-semibold mt-0.5 opacity-70">{{ __('Booked') }}</span>
                                     <div x-show="selectedTime === '{{ $slot }}' && !isBooked('{{ $slot }}')" class="absolute bottom-0 left-0 w-full h-0.5 bg-cta"></div>
                                 </button>
                             @endforeach
                         </div>
 
                         <div x-show="!selectedDate" class="py-8 text-center opacity-50 text-sm">
-                            ← Select a date to see available slots
+                            ← {{ __('Select a date to see available slots') }}
                         </div>
                     </div>
 
@@ -130,7 +130,7 @@
                             :disabled="!selectedDate || !selectedTime"
                             :class="(!selectedDate || !selectedTime) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cta-hover hover:shadow-lg hover:-translate-y-0.5'"
                             class="w-full py-4 bg-cta text-white rounded-xl font-bold transition-all shadow-md text-[15px] flex items-center justify-center gap-2">
-                            Continue to Payment
+                            {{ __('Continue to Payment') }}
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                         </button>
                     </form>
@@ -141,11 +141,12 @@
             <div class="lg:col-span-1">
                 <div class="bg-white p-6 md:p-8 rounded-[2rem] shadow-soft border border-secondary/50 sticky top-28">
                     <h3 class="font-bold text-lg mb-6 flex items-center justify-between">
-                        Booking Summary
+                        {{ __('Booking Summary') }}
                     </h3>
 
                     @php
-                        $photo = asset('img/prof-pic.jpeg');
+                        $psychologist = $booking['psychologist'];
+                        $photo = $psychologist->photo_url ? asset('storage/' . $psychologist->photo_url) : asset('img/prof-pic.jpeg');
                         $serviceLabel = $booking['service_type'] === 'psikolog_klinis' ? 'Psikolog Klinis' : 'Konseling';
                     @endphp
 
@@ -153,28 +154,28 @@
                         <img src="{{ $photo }}" alt="{{ $booking['psychologist']->name }}" class="w-14 h-14 rounded-lg object-cover flex-shrink-0">
                         <div class="flex flex-col justify-center min-w-0">
                             <p class="font-bold text-sm truncate">{{ $booking['psychologist']->name }}</p>
-                            <p class="text-xs opacity-70">{{ $booking['psychologist']->specialization ?? 'Psychologist' }}</p>
+                            <p class="text-xs opacity-70">{{ $booking['psychologist']->specialization ?? __('Psychologist') }}</p>
                         </div>
                     </div>
 
                     <div class="space-y-4 mb-6 text-sm divide-y divide-secondary">
                         <div class="flex justify-between items-center py-2">
-                            <span class="opacity-70 font-medium">Service</span>
-                            <span class="font-semibold text-right">{{ $serviceLabel }}</span>
+                            <span class="opacity-70 font-medium">{{ __('Service') }}</span>
+                            <span class="font-semibold text-right">{{ __($serviceLabel) }}</span>
                         </div>
                         <div class="flex justify-between items-center py-2">
-                            <span class="opacity-70 font-medium">Duration</span>
-                            <span class="font-semibold">60 Minutes</span>
+                            <span class="opacity-70 font-medium">{{ __('Duration') }}</span>
+                            <span class="font-semibold">{{ __('60 Minutes') }}</span>
                         </div>
                         <div class="flex justify-between items-center py-2 bg-primary/5 -mx-4 px-4 rounded-lg border border-primary/20">
-                            <span class="opacity-80 font-medium">Date & Time</span>
+                            <span class="opacity-80 font-medium">{{ __('Date & Time') }}</span>
                             <span class="font-bold text-cta text-right" x-text="selectedDate ? selectedDateShort + ' · ' + selectedTimeLabel : '—'"></span>
                         </div>
                     </div>
 
                     <div class="pt-4 border-t-2 border-dashed border-secondary">
                         <div class="flex justify-between items-end">
-                            <span class="font-semibold opacity-70">Total Amount</span>
+                            <span class="font-semibold opacity-70">{{ __('Total Amount') }}</span>
                             <span class="font-bold text-2xl text-cta">Rp {{ number_format($booking['service_price'], 0, ',', '.') }}</span>
                         </div>
                     </div>

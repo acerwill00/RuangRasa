@@ -39,7 +39,7 @@
                             <tr class="hover:bg-secondary/10 transition-colors">
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-3">
-                                        <img src="{{ asset('img/prof-pic.jpeg') }}" class="w-10 h-10 rounded-full object-cover">
+                                        <img src="{{ $p->photo_url ? asset('storage/' . $p->photo_url) : asset('img/prof-pic.jpeg') }}" class="w-10 h-10 rounded-full object-cover">
                                         <div class="font-semibold">{{ $p->name }}</div>
                                     </div>
                                 </td>

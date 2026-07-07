@@ -18,13 +18,13 @@
                     <div class="w-8 h-8 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-white group-hover:scale-110 transition-transform">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="text-xs font-semibold text-text-main hidden md:block opacity-80 group-hover:opacity-100">1. Psych</span>
+                    <span class="text-xs font-semibold text-text-main hidden md:block opacity-80 group-hover:opacity-100">1. {{ __('Psych') }}</span>
                 </a>
 
                 {{-- Step 2 — Active --}}
                 <div class="flex flex-col items-center gap-2 cursor-default">
                     <div class="w-10 h-10 rounded-full bg-primary text-text-main ring-4 ring-white flex items-center justify-center font-bold text-lg shadow-soft">2</div>
-                    <span class="text-xs font-bold text-cta bg-white px-2 py-0.5 rounded shadow-sm">2. Service</span>
+                    <span class="text-xs font-bold text-cta bg-white px-2 py-0.5 rounded shadow-sm">2. {{ __('Service') }}</span>
                 </div>
 
                 {{-- Step 3 — Done if pre-selected, otherwise locked --}}
@@ -33,19 +33,19 @@
                         <div class="w-8 h-8 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-white">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-xs font-semibold text-text-main hidden md:block opacity-80">3. Schedule</span>
+                        <span class="text-xs font-semibold text-text-main hidden md:block opacity-80">3. {{ __('Schedule') }}</span>
                     </div>
                 @else
                     <div class="flex flex-col items-center gap-2 bg-secondary/10 py-1 px-1 md:px-2 rounded-lg text-text-main/40">
                         <div class="w-8 h-8 rounded-full bg-white border border-secondary flex items-center justify-center font-bold text-sm shadow-sm">3</div>
-                        <span class="text-xs font-medium hidden md:block">3. Schedule</span>
+                        <span class="text-xs font-medium hidden md:block">3. {{ __('Schedule') }}</span>
                     </div>
                 @endif
 
                 {{-- Step 4 — Locked --}}
                 <div class="flex flex-col items-center gap-2 bg-secondary/10 py-1 px-1 md:px-2 rounded-lg text-text-main/40">
                     <div class="w-8 h-8 rounded-full bg-white border border-secondary flex items-center justify-center font-bold text-sm shadow-sm">4</div>
-                    <span class="text-xs font-medium hidden md:block">4. Payment</span>
+                    <span class="text-xs font-medium hidden md:block">4. {{ __('Payment') }}</span>
                 </div>
             </div>
         </div>
@@ -55,20 +55,20 @@
             {{-- ── Psychologist Card ────────────────────────────────────── --}}
             <div class="bg-white rounded-[2rem] shadow-soft border border-secondary/50 p-6 mb-8 flex items-center gap-5">
                 @php
-                    $photo = asset('img/prof-pic.jpeg');
+                    $photo = $psychologist->photo_url ? asset('storage/' . $psychologist->photo_url) : asset('img/prof-pic.jpeg');
                 @endphp
                 <img src="{{ $photo }}" alt="{{ $psychologist->name }}" class="w-16 h-16 rounded-2xl object-cover flex-shrink-0">
                 <div class="flex-1 min-w-0">
                     <p class="font-bold text-text-main text-lg leading-tight truncate">{{ $psychologist->name }}</p>
-                    <p class="text-sm opacity-60 mt-0.5">{{ $psychologist->specialization ?? 'Clinical Psychologist' }}</p>
+                    <p class="text-sm opacity-60 mt-0.5">{{ $psychologist->specialization ?? __('Clinical Psychologist') }}</p>
                 </div>
-                <a href="/psychologist/{{ $psychologist->id }}" class="text-xs font-semibold text-cta hover:underline flex-shrink-0">Change</a>
+                <a href="/psychologist/{{ $psychologist->id }}" class="text-xs font-semibold text-cta hover:underline flex-shrink-0">{{ __('Change') }}</a>
             </div>
 
             {{-- ── Header ──────────────────────────────────────────────── --}}
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold mb-3 text-text-main">Select Session Type</h1>
-                <p class="opacity-70 text-lg">Choose the type of support you need.</p>
+                <h1 class="text-3xl font-bold mb-3 text-text-main">{{ __('Select Session Type') }}</h1>
+                <p class="opacity-70 text-lg">{{ __('Choose the type of support you need.') }}</p>
             </div>
 
             {{-- ── Service Cards ────────────────────────────────────────── --}}
@@ -89,8 +89,8 @@
                                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold mb-1.5 group-hover:text-cta transition-colors">Clinical Psychologist</h3>
-                                <p class="opacity-70 text-[15px] font-medium max-w-sm">Assists in exploring issues more deeply, understanding disruptive patterns, and receiving structured interventions.</p>
+                                <h3 class="text-2xl font-bold mb-1.5 group-hover:text-cta transition-colors">{{ __('Clinical Psychologist') }}</h3>
+                                <p class="opacity-70 text-[15px] font-medium max-w-sm">{{ __('Assists in exploring issues more deeply, understanding disruptive patterns, and receiving structured interventions.') }}</p>
                             </div>
                         </div>
                         <div class="relative z-10 text-right pr-2 flex-shrink-0 ml-4">
@@ -113,8 +113,8 @@
                                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold mb-1.5 group-hover:text-cta transition-colors">Counseling with a Counselor</h3>
-                                <p class="opacity-70 text-[15px] font-medium max-w-sm">Accompanied by a trained counselor who listens without judgment in a safe and supportive sharing session.</p>
+                                <h3 class="text-2xl font-bold mb-1.5 group-hover:text-cta transition-colors">{{ __('Counseling with a Counselor') }}</h3>
+                                <p class="opacity-70 text-[15px] font-medium max-w-sm">{{ __('Accompanied by a trained counselor who listens without judgment in a safe and supportive sharing session.') }}</p>
                             </div>
                         </div>
                         <div class="relative z-10 text-right pr-2 flex-shrink-0 ml-4">
@@ -129,7 +129,7 @@
 
             <a href="/our-psychologist" class="mt-8 text-sm font-bold opacity-60 hover:opacity-100 hover:text-cta transition-colors flex items-center justify-center gap-1.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                Back to Psychologists
+                {{ __('Back to Psychologists') }}
             </a>
         </div>
     </div>

@@ -21,14 +21,14 @@
                         <div class="w-8 h-8 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-white group-hover:scale-110 transition-transform">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-xs font-semibold text-text-main hidden md:block opacity-80 group-hover:opacity-100">{{ $step['label'] }}</span>
+                        <span class="text-xs font-semibold text-text-main hidden md:block opacity-80 group-hover:opacity-100">{{ __($step['label']) }}</span>
                     </a>
                 @endforeach
 
                 {{-- Step 4 — Active --}}
                 <div class="flex flex-col items-center gap-2 cursor-default">
                     <div class="w-10 h-10 rounded-full bg-primary text-text-main ring-4 ring-white flex items-center justify-center font-bold text-lg shadow-soft">4</div>
-                    <span class="text-xs font-bold text-cta bg-white px-2 py-0.5 rounded shadow-sm">4. Payment</span>
+                    <span class="text-xs font-bold text-cta bg-white px-2 py-0.5 rounded shadow-sm">4. {{ __('Payment') }}</span>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             {{-- ── Patient Info Form ─────────────────────────────────────── --}}
             <div class="lg:col-span-2 space-y-6">
                 <div class="bg-white p-8 rounded-[2rem] shadow-soft border border-secondary/50">
-                    <h1 class="text-2xl font-bold mb-6">Patient Details</h1>
+                    <h1 class="text-2xl font-bold mb-6">{{ __('Patient Details') }}</h1>
 
                     @php
                         $user      = auth()->user();
@@ -49,22 +49,22 @@
                     <div class="space-y-5">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div>
-                                <label class="block text-sm font-bold text-text-main mb-2">First Name</label>
+                                <label class="block text-sm font-bold text-text-main mb-2">{{ __('First Name') }}</label>
                                 <input type="text" value="{{ $firstName }}" class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:border-cta focus:ring-4 focus:ring-primary/20 transition-all font-medium" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-text-main mb-2">Last Name</label>
+                                <label class="block text-sm font-bold text-text-main mb-2">{{ __('Last Name') }}</label>
                                 <input type="text" value="{{ $lastName }}" class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:border-cta focus:ring-4 focus:ring-primary/20 transition-all font-medium" readonly>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-text-main mb-2">Email</label>
+                            <label class="block text-sm font-bold text-text-main mb-2">{{ __('Email') }}</label>
                             <input type="email" value="{{ $user->email }}" class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:border-cta focus:ring-4 focus:ring-primary/20 transition-all font-medium" readonly>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-text-main mb-2">Phone Number <span class="font-normal opacity-50">(optional)</span></label>
+                            <label class="block text-sm font-bold text-text-main mb-2">{{ __('Phone Number') }} <span class="font-normal opacity-50">{{ __('(optional)') }}</span></label>
                             <input type="tel" id="patient_phone" class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:border-cta focus:ring-4 focus:ring-primary/20 transition-all font-medium" placeholder="+62 8xx xxxx xxxx">
-                            <p class="text-[11px] opacity-60 mt-1.5">For WhatsApp reminders 1 hour before your session.</p>
+                            <p class="text-[11px] opacity-60 mt-1.5">{{ __('For WhatsApp reminders 1 hour before your session.') }}</p>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 {{-- Secure Payment Notice --}}
                 <div class="bg-white p-8 rounded-[2rem] shadow-soft border border-secondary/50">
                     <div class="flex items-center justify-between mb-3">
-                        <h2 class="text-xl font-bold">Secure Payment</h2>
+                        <h2 class="text-xl font-bold">{{ __('Secure Payment') }}</h2>
                         <div class="flex items-center gap-2">
                             <div class="h-6 px-2 bg-slate-100 rounded flex items-center justify-center border border-slate-200">
                                 <span class="text-[9px] font-black italic text-slate-600">VISA</span>
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-sm opacity-70">You will be securely redirected to Midtrans to complete your payment via bank transfer, e-wallet, or credit card.</p>
+                    <p class="text-sm opacity-70">{{ __('You will be securely redirected to Midtrans to complete your payment via bank transfer, e-wallet, or credit card.') }}</p>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
             <div class="lg:col-span-1">
                 <div class="bg-white p-6 md:p-8 rounded-[2rem] shadow-soft border border-primary/30 sticky top-28 bg-gradient-to-b from-white to-primary/5">
                     <h3 class="font-bold text-lg mb-6 flex items-center justify-between">
-                        Booking Summary
+                        {{ __('Booking Summary') }}
                         <button type="button" onclick="copySummary()" class="text-cta hover:text-cta-hover transition-colors p-1 rounded-md hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-cta" title="Copy Summary">
                             <svg class="w-5 h-5 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                         </button>
@@ -98,7 +98,7 @@
 
                     @php
                         $psychologist = $booking['psychologist'];
-                        $photo = asset('img/prof-pic.jpeg');
+                        $photo = $psychologist->photo_url ? asset('storage/' . $psychologist->photo_url) : asset('img/prof-pic.jpeg');
                         $serviceLabel = $booking['service_type'] === 'psikolog_klinis' ? 'Psikolog Klinis' : 'Konseling';
 
                         $dateFormatted = \Carbon\Carbon::parse($booking['date'])->format('D, d M Y');
@@ -112,46 +112,46 @@
                         <img src="{{ $photo }}" alt="{{ $psychologist->name }}" class="w-14 h-14 rounded-lg object-cover flex-shrink-0">
                         <div class="flex flex-col justify-center min-w-0">
                             <p class="font-bold text-sm truncate">{{ $psychologist->name }}</p>
-                            <p class="text-xs opacity-70">{{ $serviceLabel }}</p>
+                            <p class="text-xs opacity-70">{{ __($serviceLabel) }}</p>
                         </div>
                     </div>
 
                     <div class="space-y-4 mb-6 text-sm divide-y divide-secondary">
                         <div class="flex justify-between items-center py-2">
-                            <span class="opacity-70 font-medium">Date & Time</span>
+                            <span class="opacity-70 font-medium">{{ __('Date & Time') }}</span>
                             <span class="font-bold text-right text-cta">{{ $dateFormatted }}<br>{{ $timeFormatted }}</span>
                         </div>
                         <div class="flex justify-between items-center py-2">
-                            <span class="opacity-70 font-medium">Consultation Fee</span>
+                            <span class="opacity-70 font-medium">{{ __('Consultation Fee') }}</span>
                             <span class="font-semibold">Rp {{ number_format($booking['service_price'], 0, ',', '.') }}</span>
                         </div>
                         <div class="flex justify-between items-center py-2">
-                            <span class="opacity-60 text-xs font-medium">Platform Fee</span>
+                            <span class="opacity-60 text-xs font-medium">{{ __('Platform Fee') }}</span>
                             <span class="font-semibold text-xs opacity-60">Rp {{ number_format($platformFee, 0, ',', '.') }}</span>
                         </div>
                     </div>
 
                     <div class="pt-4 border-t-2 border-dashed border-secondary mb-6">
                         <div class="flex justify-between items-end">
-                            <span class="font-semibold opacity-70">Total Due</span>
+                            <span class="font-semibold opacity-70">{{ __('Total Due') }}</span>
                             <span class="font-black text-2xl text-text-main">Rp {{ number_format($total, 0, ',', '.') }}</span>
                         </div>
                     </div>
 
                     <button id="pay-button" class="w-full py-4 px-4 bg-cta hover:bg-cta-hover text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 text-[15px]">
-                        Confirm & Pay
+                        {{ __('Confirm & Pay') }}
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     </button>
 
                     <p class="text-[11px] text-center opacity-60 mt-4 flex items-center justify-center gap-1">
                         <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                        SSL secured · Data strictly confidential
+                        {{ __('SSL secured · Data strictly confidential') }}
                     </p>
 
 
                     <div class="mt-3 flex justify-center">
                         <a href="/book/{{ $psychologist->id }}/schedule" class="text-xs font-bold text-slate-400 hover:text-cta transition-colors border-b border-transparent hover:border-cta pb-0.5">
-                            ← Edit Schedule
+                            {{ __('← Edit Schedule') }}
                         </a>
                     </div>
                 </div>

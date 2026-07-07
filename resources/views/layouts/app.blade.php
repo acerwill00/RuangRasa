@@ -84,30 +84,43 @@
             <!-- Desktop Links -->
             <div class="hidden md:flex items-center gap-8 font-medium">
                 <a href="/services" class="relative group transition-colors {{ request()->is('services*') ? 'text-cta font-semibold' : 'hover:text-cta' }}">
-                    Services
+                    {{ __('Services') }}
                     <span class="absolute -bottom-1 left-0 h-0.5 bg-cta transition-all duration-300 {{ request()->is('services*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
                 </a>
                 <a href="/our-psychologist" class="relative group transition-colors {{ request()->is('our-psychologist*') || request()->is('psychologist*') ? 'text-cta font-semibold' : 'hover:text-cta' }}">
-                    Our Psychologist
+                    {{ __('Our Psychologist') }}
                     <span class="absolute -bottom-1 left-0 h-0.5 bg-cta transition-all duration-300 {{ request()->is('our-psychologist*') || request()->is('psychologist*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
                 </a>
                 <a href="/articles" class="relative group transition-colors {{ request()->is('article*') ? 'text-cta font-semibold' : 'hover:text-cta' }}">
-                    Articles
+                    {{ __('Articles') }}
                     <span class="absolute -bottom-1 left-0 h-0.5 bg-cta transition-all duration-300 {{ request()->is('article*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
                 </a>
                 <a href="/about" class="relative group transition-colors {{ request()->is('about*') ? 'text-cta font-semibold' : 'hover:text-cta' }}">
-                    About
+                    {{ __('About') }}
                     <span class="absolute -bottom-1 left-0 h-0.5 bg-cta transition-all duration-300 {{ request()->is('about*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
                 </a>
             </div>
 
             <!-- Actions -->
             <div class="hidden md:flex items-center gap-3">
+                {{-- Language Switcher --}}
+                <div x-data="{ open: false }" class="relative mr-2" @click.outside="open = false">
+                    <button @click="open = !open" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 hover:border-primary/60 hover:bg-slate-50 transition-colors text-sm font-semibold text-slate-600 focus:outline-none">
+                        <svg class="w-4 h-4 text-cta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                        {{ strtoupper(app()->getLocale()) }}
+                        <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div x-show="open" style="display: none;" class="absolute right-0 top-full mt-2 w-32 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden z-50">
+                        <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2.5 text-sm font-medium hover:bg-primary/10 transition-colors {{ app()->getLocale() === 'en' ? 'text-cta bg-primary/5' : 'text-slate-600' }}">English</a>
+                        <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2.5 text-sm font-medium hover:bg-primary/10 transition-colors {{ app()->getLocale() === 'id' ? 'text-cta bg-primary/5' : 'text-slate-600' }}">Indonesia</a>
+                    </div>
+                </div>
+
                 @auth
                     {{-- Book Session Button (only for non-admin patients) --}}
                     @if(!auth()->user()->is_admin)
                         <a href="/our-psychologist" class="px-5 py-2.5 bg-cta hover:bg-cta-hover text-white rounded-xl font-semibold transition-all shadow-sm hover:shadow text-sm">
-                            Book Session
+                            {{ __('Book Session') }}
                         </a>
                     @endif
 
@@ -132,7 +145,7 @@
                              class="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden z-50">
                             
                             <div class="px-4 py-3 bg-secondary/30 border-b border-slate-100 flex justify-between items-center">
-                                <p class="font-semibold text-text-main text-sm">Notifications</p>
+                                <p class="font-semibold text-text-main text-sm">{{ __('Notifications') }}</p>
                             </div>
 
                             <div class="max-h-80 overflow-y-auto">
@@ -144,7 +157,7 @@
                                     </a>
                                 @empty
                                     <div class="px-4 py-6 text-center text-sm text-slate-500">
-                                        No notifications yet.
+                                        {{ __('No notifications yet.') }}
                                     </div>
                                 @endforelse
                             </div>
@@ -184,7 +197,7 @@
                             
                             {{-- User Info Header --}}
                             <div class="px-4 py-3 bg-secondary/30 border-b border-slate-100">
-                                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Signed in as</p>
+                                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ __('Signed in as') }}</p>
                                 <p class="font-semibold text-text-main truncate text-sm mt-0.5">{{ auth()->user()->name }}</p>
                                 <p class="text-xs text-slate-400 truncate">{{ auth()->user()->email }}</p>
                             </div>
@@ -197,14 +210,14 @@
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
-                                        My Profile
+                                        {{ __('My Profile') }}
                                     </a>
                                     <a href="/dashboard" 
                                        class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-primary/10 hover:text-cta transition-colors {{ request()->is('dashboard*') ? 'bg-primary/10 text-cta' : '' }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                         </svg>
-                                        My Booking
+                                        {{ __('My Booking') }}
                                     </a>
                                 @else
                                     <a href="/admin/dashboard" 
@@ -212,7 +225,7 @@
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                                         </svg>
-                                        Dashboard
+                                        {{ __('Dashboard') }}
                                     </a>
                                 @endif
                             </div>
@@ -225,7 +238,7 @@
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                                         </svg>
-                                        Log Out
+                                        {{ __('Log Out') }}
                                     </button>
                                 </form>
                             </div>
@@ -233,10 +246,10 @@
                     </div>
 
                 @else
-                    <a href="/login" class="px-4 py-2 font-medium hover:text-cta transition-colors text-sm">Log In</a>
+                    <a href="/login" class="px-4 py-2 font-medium hover:text-cta transition-colors text-sm">{{ __('Log In') }}</a>
                     <a href="/login" id="book-session-btn"
                        class="px-5 py-2.5 bg-cta hover:bg-cta-hover text-white rounded-xl font-semibold transition-all shadow-sm hover:shadow text-sm">
-                        Book Session
+                        {{ __('Book Session') }}
                     </a>
                 @endauth
             </div>
@@ -263,23 +276,23 @@
                 <p class="text-sm opacity-80 max-w-sm">A warm, safe space for your mental wellbeing. Connect with empathetic professionals ready to listen.</p>
             </div>
             <div>
-                <h4 class="font-semibold mb-4">Explore</h4>
+                <h4 class="font-semibold mb-4">{{ __('Explore') }}</h4>
                 <ul class="space-y-2 text-sm opacity-80">
-                    <li><a href="/services" class="hover:text-cta">Therapy Services</a></li>
-                    <li><a href="/articles" class="hover:text-cta">Articles & Resources</a></li>
-                    <li><a href="/our-psychologist" class="hover:text-cta">Our Psychologist</a></li>
+                    <li><a href="/services" class="hover:text-cta">{{ __('Therapy Services') }}</a></li>
+                    <li><a href="/articles" class="hover:text-cta">{{ __('Articles & Resources') }}</a></li>
+                    <li><a href="/our-psychologist" class="hover:text-cta">{{ __('Our Psychologist') }}</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-semibold mb-4">Support</h4>
+                <h4 class="font-semibold mb-4">{{ __('Support') }}</h4>
                 <ul class="space-y-2 text-sm opacity-80">
-                    <li><a href="/faq" class="hover:text-cta">FAQ</a></li>
-                    <li><a href="/privacy" class="hover:text-cta">Privacy Policy</a></li>
-                    <li><a href="/contact" class="hover:text-cta">Contact Us</a></li>
+                    <li><a href="/faq" class="hover:text-cta">{{ __('FAQ') }}</a></li>
+                    <li><a href="/privacy" class="hover:text-cta">{{ __('Privacy Policy') }}</a></li>
+                    <li><a href="/contact" class="hover:text-cta">{{ __('Contact Us') }}</a></li>
                 </ul>
             </div>
             <div class="text-center md:text-left">
-                <h4 class="font-semibold mb-4 text-text-main">Our Social Media</h4>
+                <h4 class="font-semibold mb-4 text-text-main">{{ __('Our Social Media') }}</h4>
                 <div class="flex items-center justify-center md:justify-start gap-5">
                     <a href="https://www.instagram.com/rasa.psycenter/" target="_blank" rel="noopener noreferrer" class="text-cta hover:text-cta-hover transition-transform hover:scale-110 drop-shadow-sm" aria-label="Instagram">
                         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -291,7 +304,7 @@
             </div>
         </div>
         <div class="border-t border-text-main/10 mt-12 pt-8 text-center text-sm opacity-60">
-            &copy; {{ date('Y') }} RASA Psychology. All rights reserved.
+            &copy; {{ date('Y') }} RASA Psychology. {{ __('All rights reserved.') }}
         </div>
     </footer>
 

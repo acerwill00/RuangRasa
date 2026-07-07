@@ -40,88 +40,35 @@
     <div x-ref="slider" class="flex overflow-x-auto gap-6 pb-8 scrollbar-none pt-4 px-2 -mx-2 hover:cursor-grab active:cursor-grabbing">
         
         @php
-        $doctors = [
-            [
-                'name' => 'Clara J. M. Psi., Psikolog',
-                'image' => asset('img/prof-pic.jpeg'),
-                'rating' => '4.9/5.0',
-                'reviews' => '50+',
-                'original_price' => '349.000',
-                'discount' => '-28%',
-                'price' => '249.000',
-                'schedules' => ['Senin, 18:00 WIB', 'Selasa, 10:00 WIB']
-            ],
-            [
-                'name' => 'Budi S. M. Psi., Psikolog',
-                'image' => asset('img/prof-pic.jpeg'),
+        $dbPsychologists = \App\Models\Psychologist::take(6)->get();
+        $doctors = [];
+        foreach($dbPsychologists as $p) {
+            $doctors[] = [
+                'id' => $p->id,
+                'name' => $p->name,
+                'image' => $p->photo_url ? asset('storage/' . $p->photo_url) : asset('img/prof-pic.jpeg'),
                 'rating' => '5.0/5.0',
-                'reviews' => '120+',
-                'original_price' => '400.000',
-                'discount' => '-25%',
-                'price' => '300.000',
-                'schedules' => ['Rabu, 14:00 WIB', 'Kamis, 15:30 WIB']
-            ],
-            [
-                'name' => 'Dr. Andini R. Psikolog',
-                'image' => asset('img/prof-pic.jpeg'),
-                'rating' => '4.8/5.0',
-                'reviews' => '35+',
-                'original_price' => '300.000',
-                'discount' => '-16%',
-                'price' => '250.000',
-                'schedules' => ['Jumat, 16:00 WIB', 'Sabtu, 09:00 WIB']
-            ],
-            [
-                'name' => 'Rizky A. M. Psi., Psikolog',
-                'image' => asset('img/prof-pic.jpeg'),
-                'rating' => '4.9/5.0',
-                'reviews' => '80+',
-                'original_price' => '350.000',
-                'discount' => '-20%',
-                'price' => '280.000',
-                'schedules' => ['Senin, 13:00 WIB', 'Selasa, 14:00 WIB']
-            ],
-            [
-                'name' => 'Fahri Z. Psikolog',
-                'image' => asset('img/prof-pic.jpeg'),
-                'rating' => '4.7/5.0',
-                'reviews' => '42+',
-                'original_price' => '320.000',
-                'discount' => '-15%',
-                'price' => '272.000',
-                'schedules' => ['Kamis, 19:00 WIB', 'Jumat, 13:00 WIB']
-            ],
-            [
-                'name' => 'Sinta M. Psikolog',
-                'image' => asset('img/prof-pic.jpeg'),
-                'rating' => '5.0/5.0',
-                'reviews' => '200+',
-                'original_price' => '450.000',
-                'discount' => '-30%',
-                'price' => '315.000',
-                'schedules' => ['Senin, 09:00 WIB', 'Selasa, 16:30 WIB']
-            ],
-            [
-                'name' => 'Dimas W. M. Psi., Psikolog',
-                'image' => asset('img/prof-pic.jpeg'),
-                'rating' => '4.8/5.0',
-                'reviews' => '65+',
-                'original_price' => '380.000',
-                'discount' => '-21%',
-                'price' => '300.000',
-                'schedules' => ['Rabu, 10:00 WIB', 'Sabtu, 14:00 WIB']
-            ]
-        ];
-        // Duplicate array for seamless infinite looping scroll
-        $doctors = array_merge($doctors, $doctors);
+                'reviews' => 'Verified',
+                'original_price' => number_format($p->price_per_session + 50000, 0, ',', '.'),
+                'discount' => 'Special',
+                'price' => number_format($p->price_per_session, 0, ',', '.'),
+                'schedules' => ['Jadwal Terdekat', 'Lihat Lainnya'],
+                'slug' => $p->slug ?? $p->id
+            ];
+        }
+        
+        // Duplicate array for seamless infinite looping scroll (needs min items to scroll nicely)
+        if(count($doctors) > 0) {
+            $doctors = array_merge($doctors, $doctors, $doctors); 
+        }
         @endphp
 
         <!-- Cards loop -->
         @foreach($doctors as $doctor)
-        <div class="bg-white rounded-2xl shadow-md border border-gray-100 min-w-[300px] shrink-0 p-5 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group">
+        <div style="width: 300px; min-width: 300px;" class="bg-white rounded-2xl shadow-md border border-gray-100 shrink-0 p-5 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group">
             
             <!-- Dynamic Image Hover Effect Optional Wrapper -->
-            <a href="/psychologist/budi" class="block rounded-xl overflow-hidden aspect-square bg-secondary/30 mb-4 relative flex-shrink-0">
+            <a href="/psychologist/{{ $doctor['slug'] }}" style="aspect-ratio: 4/5;" class="block rounded-xl overflow-hidden bg-secondary/30 mb-4 relative flex-shrink-0 w-full">
                 <img src="{{ $doctor['image'] }}" alt="Photo of {{ $doctor['name'] }}" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
             </a>
 
@@ -132,7 +79,7 @@
             </div>
 
             <!-- Name -->
-            <a href="/psychologist/budi" class="group-hover:text-cta transition-colors">
+            <a href="/psychologist/{{ $doctor['slug'] }}" class="group-hover:text-cta transition-colors">
                 <h3 class="text-xl font-bold mb-1.5">{{ $doctor['name'] }}</h3>
             </a>
 
@@ -159,7 +106,7 @@
                 <p class="text-[11px] font-bold text-slate-400 mb-2.5 uppercase tracking-wider">Jadwal Tercepat</p>
                 <div class="space-y-2">
                     @foreach($doctor['schedules'] as $schedule)
-                    <a href="/book" class="block w-full py-2.5 border-2 border-gray-200 rounded-xl text-sm font-semibold text-slate-500 hover:border-cta hover:text-cta tracking-wide transition-colors text-center focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <a href="/book/{{ $doctor['id'] }}" class="block w-full py-2.5 border-2 border-gray-200 rounded-xl text-sm font-semibold text-slate-500 hover:border-cta hover:text-cta tracking-wide transition-colors text-center focus:outline-none focus:ring-2 focus:ring-primary/50">
                         {{ $schedule }}
                     </a>
                     @endforeach

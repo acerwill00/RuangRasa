@@ -32,6 +32,7 @@ class PsychologistController extends Controller
         ]);
 
         $data = $validated;
+        unset($data['photo']);
         $data['slug'] = Str::slug($validated['name']) . '-' . Str::random(5);
 
         if ($request->hasFile('photo')) {
@@ -59,6 +60,7 @@ class PsychologistController extends Controller
         ]);
 
         $data = $validated;
+        unset($data['photo']);
         
         if ($request->name !== $psychologist->name) {
             $data['slug'] = Str::slug($validated['name']) . '-' . Str::random(5);

@@ -12,9 +12,9 @@
                 <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
             </div>
 
-            <h1 class="text-3xl font-bold text-text-main mb-3">Booking Confirmed!</h1>
+            <h1 class="text-3xl font-bold text-text-main mb-3">{{ __('Booking Confirmed!') }}</h1>
             <p class="text-text-main/70 mb-8 leading-relaxed">
-                Your session with <span class="font-bold text-text-main">{{ $appointment->psychologist->name }}</span> has been successfully scheduled. We have sent a confirmation to your email.
+                {{ __('Your session with') }} <span class="font-bold text-text-main">{{ $appointment->psychologist->name }}</span> {{ __('has been successfully scheduled. We have sent a confirmation to your email.') }}
             </p>
 
             {{-- Appointment Summary Card --}}
@@ -38,13 +38,13 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-[11px] font-bold text-text-main/50 uppercase tracking-wider mb-0.5">Date & Time</p>
+                        <p class="text-[11px] font-bold text-text-main/50 uppercase tracking-wider mb-0.5">{{ __('Date & Time') }}</p>
                         <p class="font-semibold text-text-main">{{ $dt->format('l, d M Y') }}</p>
                         <p class="text-sm font-medium text-text-main/80">{{ $dt->format('h:i A') }} - {{ $endTime->format('h:i A') }}</p>
                     </div>
                     <div>
-                        <p class="text-[11px] font-bold text-text-main/50 uppercase tracking-wider mb-0.5">Service</p>
-                        <p class="font-semibold text-text-main">{{ $serviceLabel }}</p>
+                        <p class="text-[11px] font-bold text-text-main/50 uppercase tracking-wider mb-0.5">{{ __('Service') }}</p>
+                        <p class="font-semibold text-text-main">{{ __($serviceLabel) }}</p>
                     </div>
                 </div>
             </div>
@@ -55,17 +55,17 @@
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
                     </svg>
-                    Add to Google Calendar
+                    {{ __('Add to Google Calendar') }}
                 </a>
 
                 <a href="https://meet.google.com/kkm-wjfm-gyc" target="_blank" rel="noopener noreferrer" 
                    class="w-full flex items-center justify-center gap-2 py-3.5 bg-[#B18FE4] hover:bg-[#9E7CD1] text-white rounded-xl font-semibold transition-all shadow-sm hover:shadow">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    Save Google Meet Link
+                    {{ __('Save Google Meet Link') }}
                 </a>
                 
                 <a href="/dashboard" class="w-full block py-3.5 bg-secondary/30 hover:bg-secondary/50 text-text-main rounded-xl font-bold transition-all border border-transparent hover:border-secondary shadow-sm hover:shadow">
-                    Go to My Dashboard
+                    {{ __('Go to My Dashboard') }}
                 </a>
             </div>
 

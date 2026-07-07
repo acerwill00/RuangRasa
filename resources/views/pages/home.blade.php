@@ -6,26 +6,26 @@
 <section class="max-w-7xl mx-auto px-6 py-20 lg:py-32 flex flex-col md:flex-row items-center gap-12">
     <div class="flex-1 space-y-8">
         <span class="inline-block py-1.5 px-4 bg-primary/20 text-text-main font-medium rounded-full text-sm">
-            Compassionate Tele-Counseling
+            {{ __('Compassionate Tele-Counseling') }}
         </span>
         <h1 class="text-5xl lg:text-6xl font-bold leading-tight text-text-main">
-            Your Path to <span class="text-cta">Mental Clarity</span> Starts Here.
+            {!! __('Your Path to <span class="text-cta">Mental Clarity</span> Starts Here.') !!}
         </h1>
         <p class="text-lg opacity-80 max-w-xl leading-relaxed">
-            Book a session with empathetic psychologists. Calm, safe, confidential. We created a frictionless space so you can focus entirely on your wellbeing.
+            {{ __('Book a session with empathetic psychologists. Calm, safe, confidential. We created a frictionless space so you can focus entirely on your wellbeing.') }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 pt-4">
             @if(auth()->check() && auth()->user()->is_admin)
                 <a href="/our-psychologist" class="px-8 py-4 bg-cta hover:bg-cta-hover text-white text-center rounded-xl font-semibold transition-all shadow-soft hover:shadow-lg hover:-translate-y-0.5">
-                    Explore Psychologists
+                    {{ __('Explore Psychologists') }}
                 </a>
             @else
                 <a href="/book" class="px-8 py-4 bg-cta hover:bg-cta-hover text-white text-center rounded-xl font-semibold transition-all shadow-soft hover:shadow-lg hover:-translate-y-0.5">
-                    Book a Session
+                    {{ __('Book a Session') }}
                 </a>
             @endif
             <a href="/about" class="px-8 py-4 bg-secondary text-text-main text-center rounded-xl font-semibold hover:bg-secondary/70 transition-all">
-                Learn More
+                {{ __('Learn More') }}
             </a>
         </div>
     </div>
@@ -51,8 +51,8 @@
 <!-- How It Works -->
 <section class="max-w-7xl mx-auto px-6 py-24">
     <div class="text-center max-w-2xl mx-auto mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple, Frictionless Booking</h2>
-        <p class="opacity-80 text-lg">Three steps to connect with a professional who understands you. We handle the rest.</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ __('Simple, Frictionless Booking') }}</h2>
+        <p class="opacity-80 text-lg">{{ __('Three steps to connect with a professional who understands you. We handle the rest.') }}</p>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
@@ -87,10 +87,10 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Empathetic Professionals</h2>
-                <p class="opacity-80 text-lg">Licensed clinical psychologists ready to listen and help you heal.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ __('Empathetic Professionals') }}</h2>
+                <p class="opacity-80 text-lg">{{ __('Licensed clinical psychologists ready to listen and help you heal.') }}</p>
             </div>
-            <a href="/our-psychologist" class="font-medium text-cta hover:text-cta-hover transition-colors whitespace-nowrap">Explore All Psychologists &rarr;</a>
+            <a href="/our-psychologist" class="font-medium text-cta hover:text-cta-hover transition-colors whitespace-nowrap">{{ __('Explore All Psychologists') }} &rarr;</a>
         </div>
         
         <div class="pt-6">
@@ -102,8 +102,8 @@
 <!-- Testimonials -->
 <section class="max-w-7xl mx-auto px-6 py-24">
     <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Stories of Healing</h2>
-        <p class="opacity-80 text-lg">Real experiences from our community. (Names anonymized for privacy)</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ __('Stories of Healing') }}</h2>
+        <p class="opacity-80 text-lg">{{ __('Real experiences from our community. (Names anonymized for privacy)') }}</p>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

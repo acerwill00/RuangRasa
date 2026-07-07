@@ -12,6 +12,13 @@ use App\Models\Article;
 use App\Models\Psychologist;
 use App\Models\User;
 
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
+})->name('lang.switch');
+
 Route::get('/', function () {
     $articles = Article::latest()->take(3)->get();
     return view('pages.home', compact('articles'));
@@ -31,7 +38,7 @@ Route::get('/our-psychologist', function () {
     foreach($models as $m) {
         $psychologists[$m->id] = [
             'name'        => $m->name,
-            'image'       => asset('img/prof-pic.jpeg'),
+            'image'       => $m->photo_url ? asset('storage/' . $m->photo_url) : asset('img/prof-pic.jpeg'),
             'specialties' => [$m->specialization],
             'price'       => number_format($m->price_per_session, 0, ',', '.'),
             'schedules'   => ['Today', 'Tomorrow'],
@@ -53,7 +60,7 @@ Route::get('/psychologist/{id}', function ($id) {
         'id'          => $m->id,
         'name'        => $m->name,
         'title'       => 'Clinical Psychologist',
-        'image'       => asset('img/prof-pic.jpeg'),
+        'image'       => $m->photo_url ? asset('storage/' . $m->photo_url) : asset('img/prof-pic.jpeg'),
         'specialties' => [$m->specialization],
         'price'       => number_format($m->price_per_session, 0, ',', '.'),
         'bio'         => $m->bio ?? 'A dedicated professional.',
